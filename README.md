@@ -11,7 +11,7 @@ The pipeline resolves three core bottlenecks:
 
 2. **Legal Entity Resolution & Registry Verification (`mapping_financials.py`)**
    * *The Bottleneck:* Trading names used in industry reports rarely match official registry legal names due to rebrands, abbreviations or complex parent-subsidiary structures.
-   * *The Solution:* Integrated the official Companies House API to search candidates, applying filters (e.g., checking active statuses and incorporation cutoffs) to eliminate false matches. This matches trading names (e.g., "AppyWay") to their exact legal counterparts (e.g., "Yellow Line Parking Limited").
+   * *The Solution:* Integrated the official Companies House API to search candidates, applying filters (e.g. checking active statuses and incorporation cutoffs) to eliminate false matches. This matches trading names (e.g. "AppyWay") to their exact legal counterparts (e.g. "Yellow Line Parking Limited").
 
 3. **Financial Extraction (`extraction_financials.py`)**
    * *The Bottleneck:* Mid-market financial filings are non-standardized, utilizing varying iXBRL namespaces (`core:` FRC tags vs. bare strings) that routinely break rigid scrapers. Furthermore, Holdcos often report blank financial lines, masking the operational performance of subsidiaries.
