@@ -11,11 +11,11 @@ The pipeline resolves three core bottlenecks:
 
 2. **Legal Entity Resolution & Registry Verification (`mapping_financials.py`)**
    * *The Bottleneck:* Trading names used in industry reports rarely match official registry legal names due to rebrands, abbreviations or complex parent-subsidiary structures.
-   * *The Solution:* Integrated the official Companies House API to search candidates, applying filters (e.g., checking active statuses and incorporation cutoffs) to eliminate false matches. This resolves trading names (e.g., "AppyWay") to their exact legal counterparts (e.g., "Yellow Line Parking Limited").
+   * *The Solution:* Integrated the official Companies House API to search candidates, applying filters (e.g., checking active statuses and incorporation cutoffs) to eliminate false matches. This matches trading names (e.g., "AppyWay") to their exact legal counterparts (e.g., "Yellow Line Parking Limited").
 
 3. **Financial Extraction (`extraction_financials.py`)**
-   * *The Bottleneck:* Mid-market financial filings are notoriously non-standardized, utilizing varying iXBRL namespaces (`core:` FRC tags vs. bare strings) that routinely break rigid scrapers. Furthermore, Holdcos often report blank financial lines, masking the operational performance of subsidiaries.
-   * *The Solution:* Built an advanced namespace-agnostic iXBRL BeautifulSoup extraction layer. The pipeline searches files purely via element attributes rather than fixed XML names, and automatically implements an algorithmic fallback rule: if a target's primary registry returns zero revenue due to a holding company shell structure, the script identifies and re-routes the API call to extract financials from the core operating subsidiary instead.
+   * *The Bottleneck:* Mid-market financial filings are non-standardized, utilizing varying iXBRL namespaces (`core:` FRC tags vs. bare strings) that routinely break rigid scrapers. Furthermore, Holdcos often report blank financial lines, masking the operational performance of subsidiaries.
+   * *The Solution:* Built an advanced namespace-agnostic iXBRL BeautifulSoup extraction layer. The pipeline searches files purely via element attributes rather than fixed XML names and automatically implements an algorithmic fallback rule: if a target's primary registry returns zero revenue due to a holding company shell structure, the script identifies and re-routes the API call to extract financials from the core operating subsidiary instead.
 
 ### Strategic Impact
 
