@@ -6,7 +6,7 @@ In the lower-middle market, manual M&A target sourcing is bottlenecked by unstru
 The pipeline resolves three core bottlenecks:
 
 1. **Deal Ideation & PDF Scraping (`pdf_parser.py`)**
-   * *The Bottleneck:* Promising targets are often locked inside multi-column industry PDFs or awards reports (e.g., Megabuyte50) where text awards and fragmented page boundaries cause standard PDF scraping text grids to bleed together.
+   * *The Bottleneck:* Promising targets are often locked inside multi-column industry PDFs or awards reports (e.g. Megabuyte50) where text awards and fragmented page boundaries cause standard PDF scraping text grids to bleed together.
    * *The Solution:* Engineered a robust extraction script utilizing `pdfplumber` paired with a custom right-to-left parsing sequence. Because financial metrics are more structured than descriptive text, the script isolates target companies by trailing metrics first, bypassing text bleeding and automating the initial programmatic identification of 50 mid-market candidates.
 
 2. **Legal Entity Resolution & Registry Verification (`mapping_financials.py`)**
