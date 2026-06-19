@@ -1,7 +1,7 @@
 # mobility-platform-ma-pipeline
 ## Commercial Context & Business Case
 
-In the lower-middle market, manual M&A target sourcing is bottlenecked by unstructured regulatory registry filings, fragmented industry reports, and inconsistent corporate reporting layouts. This programmatic data engineering pipeline automates deal sourcing, entity verification and the financial extraction step of a buy-and-build investment strategy.
+In the lower-middle market, M&A target sourcing is bottlenecked by unstructured regulatory registry filings, fragmented industry reports and inconsistent corporate reporting layouts. This programmatic data engineering pipeline automates deal sourcing, entity verification and the financial extraction step of a buy-and-build investment strategy.
 
 The pipeline resolves three core bottlenecks:
 
