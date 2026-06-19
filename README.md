@@ -10,7 +10,7 @@ The pipeline resolves three core bottlenecks:
    * *The Solution:* Engineered a robust extraction script utilizing `pdfplumber` paired with a custom right-to-left parsing sequence. Because financial metrics are more structured than descriptive text, the script isolates target companies by trailing metrics first, bypassing text bleeding and automating the identification of 50 mid-market candidates.
 
 2. **Legal Entity Resolution & Registry Verification (`mapping_financials.py`)**
-   * *The Bottleneck:* Trading names used in industry reports rarely match official registry legal names due to historic corporate rebrands, abbreviations, or complex parent-subsidiary structures.
+   * *The Bottleneck:* Trading names used in industry reports rarely match official registry legal names due to rebrands, abbreviations or complex parent-subsidiary structures.
    * *The Solution:* Integrated the official Companies House API to search candidates, applying temporal and situational filters (e.g., checking active statuses and incorporation cutoffs) to eliminate false matches. This resolves trading names (e.g., "AppyWay") to their exact legal counterparts (e.g., "Yellow Line Parking Limited").
 
 3. **Financial Extraction (`extraction_financials.py`)**
