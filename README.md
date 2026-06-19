@@ -19,4 +19,4 @@ The pipeline resolves three core bottlenecks:
 
 ### Strategic Impact
 
-This automation shifts the investment team’s capacity away from manual administrative data entry, allowing them to instantly focus on institutional-grade deal execution, including structural bank debt sizing, valuation arbitrage analytics, and cross-selling synergy mapping.
+This automation shifts the investment team’s capacity away from manual administrative data entry, allowing them to instantly focus on deal execution.
