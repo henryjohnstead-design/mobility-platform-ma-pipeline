@@ -62,13 +62,11 @@ with st.container(border=True):
 
     col1, col2 = st.columns(2)
     with col1:
-        with st.expander("View Python Script"):
-            try:
-                with open("pages/pdf_parser.py", "r") as f:
-                    pdf_script = f.read()
-                st.code(pdf_script, language='python')
-            except FileNotFoundError:
-                st.warning("Ensure `pages/pdf_parser.py` is in your repository.")
+        st.page_link(
+            "pages/pdf_parser.py",
+            label="Open Full Python Script →",
+            icon="📄"
+        )
 
     with col2:
         with st.expander("View Sourcing Output Table"):
@@ -126,13 +124,11 @@ with st.container(border=True):
 
         col_m1, col_m2 = st.columns(2)
         with col_m1:
-            with st.expander("View Mapping Script"):
-                try:
-                    with open("pages/mapping_financials.py", "r") as f:
-                        mapping_script = f.read()
-                    st.code(mapping_script, language='python')
-                except FileNotFoundError:
-                    st.warning("Ensure `pages/mapping_financials.py` is in your repository.")
+            st.page_link(
+                "pages/mapping_financials.py",
+                label="Open Full Mapping Script →",
+                icon="📄"
+            )
         with col_m2:
             with st.expander("View Mapping Targets Table"):
                 # File: Mapping Output.xlsx -> sheet "Sheet1"
@@ -151,13 +147,11 @@ with st.container(border=True):
 
         col_e1, col_e2 = st.columns(2)
         with col_e1:
-            with st.expander("View Extraction Script"):
-                try:
-                    with open("pages/extraction_financials.py", "r") as f:
-                        extraction_script = f.read()
-                    st.code(extraction_script, language='python')
-                except FileNotFoundError:
-                    st.warning("Ensure `pages/extraction_financials.py` is in your repository.")
+            st.page_link(
+                "pages/extraction_financials.py",
+                label="Open Full Extraction Script →",
+                icon="📄"
+            )
         with col_e2:
             with st.expander("View Extracted Data Table"):
                 # File: Financials + CCA.xlsx -> sheet "Target Financials"
