@@ -35,18 +35,13 @@ with st.container(border=True):
     col1, col2 = st.columns(2)
     with col1:
         with st.expander("View Python Script"):
-            st.code('''
-# Snippet from your pdf_parser.py
-import pdfplumber
-import pandas as pd
-
-def extract_megabuyte_targets(pdf_path):
-    # Extracts text, identifies target columns, and handles tables
-    with pdfplumber.open(pdf_path) as pdf:
-        # Programmatic parsing logic
-        pass
-            ''', language='python')
-            st.caption("Full code accessible in your `pages/pdf_parser.py` tab.")
+            try:
+                # Dynamically opens your live script file
+                with open("pages/pdf_parser.py", "r") as f:
+                    pdf_script = f.read()
+                st.code(pdf_script, language='python')
+            except FileNotFoundError:
+                st.warning("🔗 Appending full code... Ensure `pages/pdf_parser.py` is in your repository.")
             
     with col2:
         with st.expander("View Sourcing Output Table"):
@@ -81,7 +76,7 @@ with st.container(border=True):
         st.warning("🔗 Connect your uploaded `IC Memo.pdf` to activate the direct download button.")
 
 # ==========================================
-# PHASE 3: Retrieving Financial Data (With Data Gap Solution)
+# PHASE 3: Retrieving Financial Data
 # ==========================================
 st.markdown("<div style='text-align: center; font-size: 24px;'>⬇️</div>", unsafe_allow_html=True)
 
@@ -96,23 +91,47 @@ with st.container(border=True):
     
     with tab1:
         st.write("Queries the Companies House API to map trading names to verified legal entity registration numbers")
-        with st.expander("💻 View Mapping Code Snippet & Targets"):
-            try:
-                mapping_df = pd.read_csv("Mapping Output.xlsx - Sheet1.csv")
-                st.dataframe(mapping_df, use_container_width=True)
-            except Exception:
-                st.code("# Code from mapping_financials.py\n# Normalizes UK GAAP/IFRS tags", language='python')
+        
+        col_m1, col_m2 = st.columns(2)
+        with col_m1:
+            with st.expander("View Mapping Script"):
+                try:
+                    # Dynamically opens your mapping script file
+                    with open("pages/mapping_financials.py", "r") as f:
+                        mapping_script = f.read()
+                    st.code(mapping_script, language='python')
+                except FileNotFoundError:
+                    st.warning("🔗 Appending full code... Ensure `pages/mapping_financials.py` is in your repository.")
+        with col_m2:
+            with st.expander("View Mapping Targets Table"):
+                try:
+                    mapping_df = pd.read_csv("Mapping Output.xlsx - Sheet1.csv")
+                    st.dataframe(mapping_df, use_container_width=True)
+                except Exception:
+                    st.write("📁 Mapping file link updating...")
             
     with tab2:
         st.write("Parses financial metrics from the companies' iXBRL digital filings")
-        with st.expander("💻 View Extracted Data View"):
-            try:
-                extracted_financials = pd.read_csv("Financials + CCA.xlsx - Target Financials.csv")
-                st.dataframe(extracted_financials[["Company", "Revenue (£)", "Operating Profit / EBIT (£)", "EBITDA Derived (£)", "Net Debt (£)"]], use_container_width=True)
-            except Exception:
-                st.write("📁 Financial statement matrix linking...")
+        
+        col_e1, col_e2 = st.columns(2)
+        with col_e1:
+            with st.expander("View Extraction Script"):
+                try:
+                    # Dynamically opens your extraction script file
+                    with open("pages/extraction_financials.py", "r") as f:
+                        extraction_script = f.read()
+                    st.code(extraction_script, language='python')
+                except FileNotFoundError:
+                    st.warning("🔗 Appending full code... Ensure `pages/extraction_financials.py` is in your repository.")
+        with col_e2:
+            with st.expander("View Extracted Data Table"):
+                try:
+                    extracted_financials = pd.read_csv("Financials + CCA.xlsx - Target Financials.csv")
+                    st.dataframe(extracted_financials[["Company", "Revenue (£)", "Operating Profit / EBIT (£)", "EBITDA Derived (£)", "Net Debt (£)"]], use_container_width=True)
+                except Exception:
+                    st.write("📁 Financial statement link updating...")
 
-    # Financial Engineering Gaps Solution (Framed in blue st.info)
+    # Financial Engineering Gaps Solution Box
     st.info(
         "**Problem:** There were gaps in the financial output data due to small/medium companies filing abridged "
         "or simplified accounts.\n\n"
@@ -120,14 +139,12 @@ with st.container(border=True):
         "and reconstitute complete institutional income statements."
     )
     
-    # Placeholder for the data asset you will attach next
     with st.expander("📊 View Completed & Reconstituted Financial Data (With Industry Estimates)"):
         try:
-            # Replaces with the master matrix sheet you send next
             est_financials = pd.read_csv("Mobility_Platform_Financials.xlsx - Sheet1.csv")
             st.dataframe(est_financials, use_container_width=True)
         except Exception:
-            st.caption("Upload your updated estimates sheet file to view the final output data grid here.")
+            st.caption("📁 Financial estimates dataset link updating...")
 
 # ==========================================
 # PHASE 4: Valuation & Institutional Modeling
@@ -141,7 +158,6 @@ with st.container(border=True):
         "Then I ran a debt sizing framework to see how much bank debt the cash flows could safely service."
     )
     
-    # Financial tables summary output directly from your master spreadsheet
     with st.expander("📊 View Valuation & Leverage Summary Dashboard"):
         try:
             val_df = pd.read_csv("Financials + CCA.xlsx - Valuation Summary.csv")
