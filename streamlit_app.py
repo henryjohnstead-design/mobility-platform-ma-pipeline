@@ -47,9 +47,9 @@ with st.container(border=True):
         with st.expander("View Sourcing Output Table"):
             try:
                 sourcing_df = pd.read_csv("python_PDFparse.xlsx - Megabuyte50_Rankings.csv")
-                st.dataframe(sourcing_df[["Rank", "Company", "Sector", "Ownership", "Revenue (GBPm)", "EBITDA (GBPm)"]].head(10), use_container_width=True)
-            except Exception:
-                st.write("📁 Sourcing data view ready upon repository refresh.")
+                st.dataframe(sourcing_df, use_container_width=True)
+            except Exception as e:
+                st.write(f"📁 Sourcing data view ready upon repository refresh.")
 
 # ==========================================
 # PHASE 2: Conducting a Bolt-on Strategy
