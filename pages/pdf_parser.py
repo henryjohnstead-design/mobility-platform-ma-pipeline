@@ -1,3 +1,10 @@
+import streamlit as st
+
+st.title("Phase 1: Algorithmic Sourcing Script")
+st.write("This script programmatically opens the Megabuyte50 PDF report, parses structural layout data, and isolates initial platform targets.")
+
+st.code('''
+
 import re
 import sys
 import requests
@@ -337,3 +344,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+''', language='python')
