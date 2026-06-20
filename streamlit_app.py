@@ -1,37 +1,35 @@
 import streamlit as st
 import pandas as pd
 
-# Set up page configuration for a professional finance look
+# Set up page configuration with no emoji in the tab title
 st.set_page_config(
     page_title="UK Tech M&A Roll-Up Strategy",
-    page_icon="💼",
     layout="wide"
 )
 
 # Main Title & Subtitle
-st.title("UK Mid-Market M&A Tech Sector Roll-Up Strategy & Valuation")
+st.title("UK Mid-Market M&A Tech Sector Roll-Up Strategy and Valuation")
 st.markdown("### *An End-to-End Buy-Side Advisory & Data Pipeline Simulation*")
-st.caption("Developed by Henry Johnstead | Role Focus: Corporate Finance, Deals & Consulting")
+st.caption("Developed by Henry Stead")
 st.markdown("---")
 
-# Quick Executive Summary Callout Box
+# Updated Summary Box
 st.info(
-    "**Project Thesis:** This interactive dashboard simulates the exact programmatic workflow of an M&A analyst. "
-    "It demonstrates automated deal sourcing, registry financial harvesting, and institutional valuation modeling "
-    "for a UK IT Services consolidation strategy."
+    "**Summary:** This interactive dashboard simulates an end-to-end buy-side workflow. "
+    "It moves sequentially from deal sourcing to financial data harvesting, it then constructs "
+    "a CCA and LBO debt capacity model to evaluate the consolidation of UK mid-market automotive tech companies."
 )
 
-st.markdown("## 📊 Strategic Transaction Pipeline")
-st.write("Follow the deal workflow sequentially below:")
+st.markdown("## Follow the deal workflow below:")
 
 # ==========================================
 # PHASE 1: Automated Deal Sourcing
 # ==========================================
 with st.container(border=True):
-    st.markdown("### 🔍 Phase 1: Algorithmic Sourcing (Megabuyte50)")
+    st.markdown("### Phase 1: Algorithmic Sourcing")
     st.write(
-        "**Objective:** Programmatically isolate high-performing UK tech firms to anchor the core platform "
-        "of our roll-up thesis."
+        "**Objective:** Programmatically isolate high-performing UK tech firms from the Megabuyte50 "
+        "to ideate for a core platform of our roll-up thesis."
     )
     
     col1, col2 = st.columns(2)
@@ -56,7 +54,7 @@ def extract_megabuyte_targets(pdf_path):
             # Mock Dataframe representation (Replace with your actual CSV file read if desired)
             mock_data = pd.DataFrame({
                 "Company Name": ["Target Alpha Tech", "Beta Cloud UK", "Gamma Systems"],
-                "Sector": ["IT Services", "Managed Services", "SaaS Solutions"],
+                "Sector": ["Automotive Tech", "Mobility Platforms", "Fleet Software"],
                 "Source": ["Megabuyte50", "Megabuyte50", "Megabuyte50"]
             })
             st.dataframe(mock_data, use_container_width=True)
@@ -67,14 +65,13 @@ def extract_megabuyte_targets(pdf_path):
 st.markdown("<div style='text-align: center; font-size: 24px;'>⬇️</div>", unsafe_allow_html=True)
 
 with st.container(border=True):
-    st.markdown("### 📄 Phase 2: Bolt-on Strategy & Investment Committee (IC) Memo")
+    st.markdown("### Phase 2: Bolt-on Strategy & Investment Committee (IC) Memo")
     st.write(
         "**Objective:** Expanded market mapping via desk research to identify strategic bolt-on targets. "
         "Synthesized findings into a formal Investment Committee presentation memo."
     )
     
     # Provide a direct download for your IC Memo PDF
-    # (Assumes 'ic_memo.pdf' is in your repo or generated)
     try:
         with open("ic_memo.pdf", "rb") as f:
             pdf_bytes = f.read()
@@ -93,7 +90,7 @@ with st.container(border=True):
 st.markdown("<div style='text-align: center; font-size: 24px;'>⬇️</div>", unsafe_allow_html=True)
 
 with st.container(border=True):
-    st.markdown("### ⚙️ Phase 3: Financial Harvesting Engine (Companies House iXBRL)")
+    st.markdown("### Phase 3: Financial Harvesting Engine (Companies House iXBRL)")
     st.write(
         "**Objective:** Bypassed the bottleneck of manual data entry by programmatically harvesting "
         "financial registry filings from Companies House across a 2-stage execution pipeline."
@@ -127,13 +124,13 @@ with st.container(border=True):
 st.markdown("<div style='text-align: center; font-size: 24px;'>⬇️</div>", unsafe_allow_html=True)
 
 with st.container(border=True):
-    st.markdown("### 🧠 Phase 4: Financial Engineering & Normalization")
+    st.markdown("### Phase 4: Financial Engineering & Normalization")
     st.write(
         "**Objective:** Resolved data gaps inherent to small/medium companies that file 'abridged' or simplified "
         "accounts. Implemented predictive top-down industry logic and benchmark estimates to reconstitute full "
         "income statements (e.g., estimating gross margins based on peer-group software averages)."
     )
-    st.caption("💡 *Demonstrates professional commercial judgment when dealing with messy middle-market data.*")
+    st.caption("💡 *Demonstrates professional analytical problem-solving when dealing with messy marketplace data.*")
 
 # ==========================================
 # PHASE 5: Valuation & Institutional Modeling
@@ -141,7 +138,7 @@ with st.container(border=True):
 st.markdown("<div style='text-align: center; font-size: 24px;'>⬇️</div>", unsafe_allow_html=True)
 
 with st.container(border=True):
-    st.markdown("### 📈 Phase 5: Comparable Companies Analysis (CCA) & LBO Model")
+    st.markdown("### Phase 5: Comparable Companies Analysis (CCA) & LBO Model")
     st.write(
         "**Objective:** Validated pricing multiples (EV/EBITDA, P/E) against public/private peer universes "
         "and ran a debt sizing framework to see how much leveraged bank debt the cash flows could safely service."
@@ -149,7 +146,7 @@ with st.container(border=True):
     
     # Interactive Demo Area
     st.markdown("#### 🛠️ Live LBO Stress-Testing Tool")
-    st.write("Test the deal's debt capacity right here on the web:")
+    st.write("Test the asset's debt capacity right here on the web:")
     
     c1, c2, c3 = st.columns(3)
     with c1:
@@ -164,7 +161,7 @@ with st.container(border=True):
     
     # Metric Callouts
     st.metric(label="Maximum Safe Debt Funding", value=f"£{total_debt:,.0f}")
-    st.caption(f"Estimated Annual Interest Payment: £{annual_interest:,.0f}. Assumes a DSCR safety floor of >1.5x.")
+    st.caption(f"Estimated Annual Interest Payment: £{annual_interest:,.0f}. Assumes a safety coverage ratio floor of >1.5x.")
     
     st.markdown("---")
     
@@ -173,7 +170,7 @@ with st.container(border=True):
         with open("cca_lbo_model.xlsx", "rb") as f:
             excel_bytes = f.read()
         st.download_button(
-            label="🟢 Download Complete Institutional Excel Model (CCA + LBO)",
+            label="🟢 Download Complete Financial Model (CCA + LBO)",
             data=excel_bytes,
             file_name="Tech_Sector_CCA_LBO_Model.xlsx",
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
@@ -182,4 +179,4 @@ with st.container(border=True):
         st.warning("🔗 [Excel Model Placeholder] Upload your financial `.xlsx` file to your repository root to enable download.")
 
 st.markdown("---")
-st.center = st.write("✨ *Thank you for reviewing my project. Feel free to pivot through the technical file breakdowns in the sidebar.*")
+st.write("✨ *Thank you for reviewing my project. Feel free to explore the technical code structures via the sidebar pages.*")
