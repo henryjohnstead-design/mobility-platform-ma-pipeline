@@ -63,7 +63,7 @@ with st.container(border=True):
     col1, col2 = st.columns(2)
     with col1:
         st.page_link(
-            "pages/pdf_parser.py",
+            "pages/1_pdf_parser.py",
             label="Open Full Python Script →",
             icon="📄"
         )
@@ -125,7 +125,7 @@ with st.container(border=True):
         col_m1, col_m2 = st.columns(2)
         with col_m1:
             st.page_link(
-                "pages/mapping_financials.py",
+                "pages/2_mapping_financials.py",
                 label="Open Full Mapping Script →",
                 icon="📄"
             )
@@ -148,7 +148,7 @@ with st.container(border=True):
         col_e1, col_e2 = st.columns(2)
         with col_e1:
             st.page_link(
-                "pages/extraction_financials.py",
+                "pages/3_extraction_financials.py",
                 label="Open Full Extraction Script →",
                 icon="📄"
             )
