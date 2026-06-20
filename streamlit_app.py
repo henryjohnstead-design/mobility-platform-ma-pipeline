@@ -36,7 +36,6 @@ with st.container(border=True):
     with col1:
         with st.expander("View Python Script"):
             try:
-                # Dynamically opens your live script file
                 with open("pages/pdf_parser.py", "r") as f:
                     pdf_script = f.read()
                 st.code(pdf_script, language='python')
@@ -46,21 +45,11 @@ with st.container(border=True):
     with col2:
         with st.expander("View Sourcing Output Table"):
             try:
-                # Clean, direct file parsing to guarantee the table loads directly
+                # Direct lookup targeting the specific raw file format
                 sourcing_df = pd.read_csv("python_PDFparse.xlsx - Megabuyte50_Rankings.csv")
                 st.dataframe(sourcing_df, use_container_width=True)
-            except Exception as e:
-                # Fallback to help match naming structures exactly
-                st.write("📁 Loading Sourcing Output Table...")
-                try:
-                    import os
-                    # Fallback lookup matches variations in whitespace or naming formats
-                    files = os.listdir(".")
-                    target_file = [f for f in files if "Megabuyte50" in f][0]
-                    sourcing_df = pd.read_csv(target_file)
-                    st.dataframe(sourcing_df, use_container_width=True)
-                except Exception:
-                    st.write(f"📁 Sourcing data view ready upon repository refresh.")
+            except Exception:
+                st.info("📁 Processing datatable preview link... Ensure file is uploaded to root folder.")
 
 # ==========================================
 # PHASE 2: Conducting a Bolt-on Strategy
@@ -107,7 +96,6 @@ with st.container(border=True):
         with col_m1:
             with st.expander("View Mapping Script"):
                 try:
-                    # Dynamically opens your mapping script file
                     with open("pages/mapping_financials.py", "r") as f:
                         mapping_script = f.read()
                     st.code(mapping_script, language='python')
@@ -128,7 +116,6 @@ with st.container(border=True):
         with col_e1:
             with st.expander("View Extraction Script"):
                 try:
-                    # Dynamically opens your extraction script file
                     with open("pages/extraction_financials.py", "r") as f:
                         extraction_script = f.read()
                     st.code(extraction_script, language='python')
@@ -181,15 +168,4 @@ with st.container(border=True):
     # Download Core Excel Model Asset
     try:
         with open("Financials + CCA.xlsx", "rb") as f:
-            excel_bytes = f.read()
-        st.download_button(
-            label="🟢 Download Complete Financial Model (CCA + LBO Workbook)",
-            data=excel_bytes,
-            file_name="Automotive_Tech_Sector_CCA_Model.xlsx",
-            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        )
-    except FileNotFoundError:
-        st.warning("🔗 Connect your master workbook `Financials + CCA.xlsx` to activate model download link.")
-
-st.markdown("---")
-st.write("Thank you for reviewing my project. Feel free to explore the technical code structures via the sidebar pages")
+            excel_bytes = f
