@@ -46,10 +46,21 @@ with st.container(border=True):
     with col2:
         with st.expander("View Sourcing Output Table"):
             try:
+                # Clean, direct file parsing to guarantee the table loads directly
                 sourcing_df = pd.read_csv("python_PDFparse.xlsx - Megabuyte50_Rankings.csv")
                 st.dataframe(sourcing_df, use_container_width=True)
             except Exception as e:
-                st.write(f"📁 Sourcing data view ready upon repository refresh.")
+                # Fallback to help match naming structures exactly
+                st.write("📁 Loading Sourcing Output Table...")
+                try:
+                    import os
+                    # Fallback lookup matches variations in whitespace or naming formats
+                    files = os.listdir(".")
+                    target_file = [f for f in files if "Megabuyte50" in f][0]
+                    sourcing_df = pd.read_csv(target_file)
+                    st.dataframe(sourcing_df, use_container_width=True)
+                except Exception:
+                    st.write(f"📁 Sourcing data view ready upon repository refresh.")
 
 # ==========================================
 # PHASE 2: Conducting a Bolt-on Strategy
@@ -127,7 +138,7 @@ with st.container(border=True):
             with st.expander("View Extracted Data Table"):
                 try:
                     extracted_financials = pd.read_csv("Financials + CCA.xlsx - Target Financials.csv")
-                    st.dataframe(extracted_financials[["Company", "Revenue (£)", "Operating Profit / EBIT (£)", "EBITDA Derived (£)", "Net Debt (£)"]], use_container_width=True)
+                    st.dataframe(extracted_financials, use_container_width=True)
                 except Exception:
                     st.write("📁 Financial statement link updating...")
 
