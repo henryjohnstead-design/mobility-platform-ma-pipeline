@@ -197,18 +197,6 @@ with st.container(border=True):
         "Then I ran a debt sizing framework to see how much bank debt the cash flows could safely service."
     )
 
-    with st.expander("View Valuation & Leverage Summary Dashboard"):
-        # File: Financials + CCA.xlsx -> sheet "Valuation Summary"
-        df_val = safe_load_excel(
-            "Financials + CCA.xlsx",
-            sheet_name="Valuation Summary",
-            search_keyword="Financials"
-        )
-        if df_val is not None:
-            st.dataframe(df_val, use_container_width=True)
-        else:
-            st.write("Valuation summary table not found — check the sheet name in Financials + CCA.xlsx.")
-
     st.markdown("---")
 
     # Download Core Excel Model Asset
