@@ -8,18 +8,31 @@ st.set_page_config(
     layout="wide"
 )
 
-# Helper function to reliably load data regardless of space/dash variations from Excel exports
-def safe_load_csv(default_name, search_keyword):
+# Helper function to reliably load data from your Excel workbooks.
+# Your repo stores data as .xlsx files (not .csv), so we read directly
+# with pd.read_excel and target the correct sheet by name.
+def safe_load_excel(filename, sheet_name=0, search_keyword=None):
+    """
+    filename: exact .xlsx filename in the repo root, e.g. "Financials + CCA.xlsx"
+    sheet_name: sheet name (str) or index (int, default first sheet)
+    search_keyword: optional fallback substring to find the file if the
+                    exact name doesn't match (handles renames/typos)
+    """
     try:
-        if os.path.exists(default_name):
-            return pd.read_csv(default_name)
-        # Fallback search if GitHub reformatted the spaces or dashes
-        files = os.listdir(".")
-        matched = [f for f in files if search_keyword.lower() in f.lower() and f.endswith('.csv')]
-        if matched:
-            return pd.read_csv(matched[0])
+        if os.path.exists(filename):
+            return pd.read_excel(filename, sheet_name=sheet_name)
+
+        # Fallback: search the current directory for a similarly named .xlsx
+        if search_keyword:
+            files = os.listdir(".")
+            matched = [
+                f for f in files
+                if search_keyword.lower() in f.lower() and f.endswith(".xlsx")
+            ]
+            if matched:
+                return pd.read_excel(matched[0], sheet_name=sheet_name)
     except Exception as e:
-        pass
+        st.error(f"Could not load '{filename}' (sheet: {sheet_name}): {e}")
     return None
 
 # Main Title & Subtitle
@@ -46,7 +59,7 @@ with st.container(border=True):
         "**Objective:** Programmatically isolate high-performing UK tech firms from the Megabuyte50 "
         "to ideate for a core platform of our roll-up thesis."
     )
-    
+
     col1, col2 = st.columns(2)
     with col1:
         with st.expander("View Python Script"):
@@ -55,15 +68,20 @@ with st.container(border=True):
                     pdf_script = f.read()
                 st.code(pdf_script, language='python')
             except FileNotFoundError:
-                st.warning("🔗 Appending full code... Ensure `pages/pdf_parser.py` is in your repository.")
-            
+                st.warning("Ensure `pages/pdf_parser.py` is in your repository.")
+
     with col2:
         with st.expander("View Sourcing Output Table"):
-            df = safe_load_csv("python_PDFparse.xlsx - Megabuyte50_Rankings.csv", "Megabuyte50")
+            # File: python_PDFparse.xlsx -> sheet "Megabuyte50_Rankings"
+            df = safe_load_excel(
+                "python_PDFparse.xlsx",
+                sheet_name="Megabuyte50_Rankings",
+                search_keyword="Megabuyte50"
+            )
             if df is not None:
                 st.dataframe(df, use_container_width=True)
             else:
-                st.info("📁 Loading Sourcing Output Table... Processing raw dataset pipeline.")
+                st.info("Sourcing output table not found — check the sheet name in python_PDFparse.xlsx.")
 
 # ==========================================
 # PHASE 2: Conducting a Bolt-on Strategy
@@ -76,18 +94,18 @@ with st.container(border=True):
         "**Objective:** Identified strategic bolts on targets and synthesised findings into a "
         "formal Investment Committee presentation memo."
     )
-    
+
     try:
         with open("IC Memo.pdf", "rb") as f:
             pdf_bytes = f.read()
         st.download_button(
-            label="📥 Download Full Investment Committee Memo (PDF)",
+            label="Download Full Investment Committee Memo (PDF)",
             data=pdf_bytes,
             file_name="IC_Memo_UK_Tech_RollUp.pdf",
             mime="application/pdf"
         )
     except FileNotFoundError:
-        st.warning("🔗 Connect your uploaded `IC Memo.pdf` to activate the direct download button.")
+        st.warning("Connect your uploaded `IC Memo.pdf` to activate the direct download button.")
 
 # ==========================================
 # PHASE 3: Retrieving Financial Data
@@ -100,12 +118,12 @@ with st.container(border=True):
         "**Objective:** Programmatically harvested financial registry filings from Companies House across "
         "a 2-stage execution pipeline."
     )
-    
+
     tab1, tab2 = st.tabs(["Stage 1", "Stage 2"])
-    
+
     with tab1:
         st.write("Queries the Companies House API to map trading names to verified legal entity registration numbers")
-        
+
         col_m1, col_m2 = st.columns(2)
         with col_m1:
             with st.expander("View Mapping Script"):
@@ -114,18 +132,23 @@ with st.container(border=True):
                         mapping_script = f.read()
                     st.code(mapping_script, language='python')
                 except FileNotFoundError:
-                    st.warning("🔗 Appending full code... Ensure `pages/mapping_financials.py` is in your repository.")
+                    st.warning("Ensure `pages/mapping_financials.py` is in your repository.")
         with col_m2:
             with st.expander("View Mapping Targets Table"):
-                df_map = safe_load_csv("Mapping Output.xlsx - Sheet1.csv", "Mapping")
+                # File: Mapping Output.xlsx -> sheet "Sheet1"
+                df_map = safe_load_excel(
+                    "Mapping Output.xlsx",
+                    sheet_name="Sheet1",
+                    search_keyword="Mapping"
+                )
                 if df_map is not None:
                     st.dataframe(df_map, use_container_width=True)
                 else:
-                    st.write("📁 Mapping file data linking...")
-            
+                    st.write("Mapping table not found — check the sheet name in Mapping Output.xlsx.")
+
     with tab2:
         st.write("Parses financial metrics from the companies' iXBRL digital filings")
-        
+
         col_e1, col_e2 = st.columns(2)
         with col_e1:
             with st.expander("View Extraction Script"):
@@ -134,14 +157,19 @@ with st.container(border=True):
                         extraction_script = f.read()
                     st.code(extraction_script, language='python')
                 except FileNotFoundError:
-                    st.warning("🔗 Appending full code... Ensure `pages/extraction_financials.py` is in your repository.")
+                    st.warning("Ensure `pages/extraction_financials.py` is in your repository.")
         with col_e2:
             with st.expander("View Extracted Data Table"):
-                df_ext = safe_load_csv("Financials + CCA.xlsx - Target Financials.csv", "Target Financials")
+                # File: Financials + CCA.xlsx -> sheet "Target Financials"
+                df_ext = safe_load_excel(
+                    "Financials + CCA.xlsx",
+                    sheet_name="Target Financials",
+                    search_keyword="Financials"
+                )
                 if df_ext is not None:
                     st.dataframe(df_ext, use_container_width=True)
                 else:
-                    st.write("📁 Financial statement link updating...")
+                    st.write("Extracted financials table not found — check the sheet name in Financials + CCA.xlsx.")
 
     # Financial Engineering Gaps Solution Box
     st.info(
@@ -150,13 +178,18 @@ with st.container(border=True):
         "**Solution:** Built top-down predictive industry logic and peer-group averages to estimate missing line items "
         "and reconstitute complete institutional income statements."
     )
-    
-    with st.expander("📊 View Completed & Reconstituted Financial Data (With Industry Estimates)"):
-        df_est = safe_load_csv("Mobility_Platform_Financials.xlsx - Sheet1.csv", "Mobility_Platform")
+
+    with st.expander("View Completed & Reconstituted Financial Data (With Industry Estimates)"):
+        # File: Mobility_Platform_Financials.xlsx -> sheet "Sheet1"
+        df_est = safe_load_excel(
+            "Mobility_Platform_Financials.xlsx",
+            sheet_name="Sheet1",
+            search_keyword="Mobility_Platform"
+        )
         if df_est is not None:
             st.dataframe(df_est, use_container_width=True)
         else:
-            st.caption("📁 Financial estimates dataset link updating...")
+            st.caption("Reconstituted financials table not found — check the sheet name in Mobility_Platform_Financials.xlsx.")
 
 # ==========================================
 # PHASE 4: Valuation & Institutional Modeling
@@ -169,28 +202,33 @@ with st.container(border=True):
         "**Objective:** Validated pricing multiples against public and private peers. "
         "Then I ran a debt sizing framework to see how much bank debt the cash flows could safely service."
     )
-    
-    with st.expander("📊 View Valuation & Leverage Summary Dashboard"):
-        df_val = safe_load_csv("Financials + CCA.xlsx - Valuation Summary.csv", "Valuation Summary")
+
+    with st.expander("View Valuation & Leverage Summary Dashboard"):
+        # File: Financials + CCA.xlsx -> sheet "Valuation Summary"
+        df_val = safe_load_excel(
+            "Financials + CCA.xlsx",
+            sheet_name="Valuation Summary",
+            search_keyword="Financials"
+        )
         if df_val is not None:
             st.dataframe(df_val, use_container_width=True)
         else:
-            st.write("📁 Valuation summary sheet linking...")
+            st.write("Valuation summary table not found — check the sheet name in Financials + CCA.xlsx.")
 
     st.markdown("---")
-    
+
     # Download Core Excel Model Asset
     try:
         with open("Financials + CCA.xlsx", "rb") as f:
             excel_bytes = f.read()
         st.download_button(
-            label="🟢 Download Complete Financial Model (CCA + LBO Workbook)",
+            label="Download Complete Financial Model (CCA + LBO Workbook)",
             data=excel_bytes,
             file_name="Automotive_Tech_Sector_CCA_Model.xlsx",
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         )
     except FileNotFoundError:
-        st.warning("🔗 Connect your master workbook `Financials + CCA.xlsx` to activate model download link.")
+        st.warning("Connect your master workbook `Financials + CCA.xlsx` to activate model download link.")
 
 st.markdown("---")
 st.write("Thank you for reviewing my project. Feel free to explore the technical code structures via the sidebar pages")
