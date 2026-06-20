@@ -13,7 +13,7 @@ st.markdown("### *An End-to-End Buy-Side Advisory & Data Pipeline Simulation*")
 st.caption("Developed by Henry Stead")
 st.markdown("---")
 
-# Updated Summary Box
+# Summary Box
 st.info(
     "**Summary:** This interactive dashboard simulates an end-to-end buy-side workflow. "
     "It moves sequentially from deal sourcing to financial data harvesting, it then constructs "
@@ -34,7 +34,7 @@ with st.container(border=True):
     
     col1, col2 = st.columns(2)
     with col1:
-        with st.expander("🛠️ View Sourcing Methodology & Python Script"):
+        with st.expander("View Python Script"):
             st.code('''
 # Snippet from your pdf_parser.py
 import pdfplumber
@@ -49,29 +49,25 @@ def extract_megabuyte_targets(pdf_path):
             st.caption("Full code accessible in your `pages/pdf_parser.py` tab.")
             
     with col2:
-        with st.expander("📈 View Sourcing Output Table"):
-            st.write("### Megabuyte50 Rankings Sourced Data")
-            # Reads your exact uploaded file name
+        with st.expander("View Sourcing Output Table"):
             try:
                 sourcing_df = pd.read_csv("python_PDFparse.xlsx - Megabuyte50_Rankings.csv")
                 st.dataframe(sourcing_df[["Rank", "Company", "Sector", "Ownership", "Revenue (GBPm)", "EBITDA (GBPm)"]].head(10), use_container_width=True)
-                st.caption("Showing top 10 rows from your live `python_PDFparse.xlsx` data.")
             except Exception:
-                st.write("📁 Data table ready upon repository refresh.")
+                st.write("📁 Sourcing data view ready upon repository refresh.")
 
 # ==========================================
-# PHASE 2: Tactical Origination & IC Memo
+# PHASE 2: Conducting a Bolt-on Strategy
 # ==========================================
 st.markdown("<div style='text-align: center; font-size: 24px;'>⬇️</div>", unsafe_allow_html=True)
 
 with st.container(border=True):
-    st.markdown("### Phase 2: Bolt-on Strategy & Investment Committee (IC) Memo")
+    st.markdown("### Phase 2: Conducting a Bolt-on Strategy")
     st.write(
-        "**Objective:** Expanded market mapping via desk research to identify strategic bolt-on targets. "
-        "Synthesized findings into a formal Investment Committee presentation memo."
+        "**Objective:** Identified strategic bolts on targets and synthesised findings into a "
+        "formal Investment Committee presentation memo."
     )
     
-    # Matches your exact uploaded name: "IC Memo.pdf"
     try:
         with open("IC Memo.pdf", "rb") as f:
             pdf_bytes = f.read()
@@ -85,24 +81,22 @@ with st.container(border=True):
         st.warning("🔗 Connect your uploaded `IC Memo.pdf` to activate the direct download button.")
 
 # ==========================================
-# PHASE 3: Data Engineering Pipeline
+# PHASE 3: Retrieving Financial Data (With Data Gap Solution)
 # ==========================================
 st.markdown("<div style='text-align: center; font-size: 24px;'>⬇️</div>", unsafe_allow_html=True)
 
 with st.container(border=True):
-    st.markdown("### Phase 3: Financial Harvesting Engine (Companies House iXBRL)")
+    st.markdown("### Phase 3: Retrieving Financial Data")
     st.write(
-        "**Objective:** Bypassed the bottleneck of manual data entry by programmatically harvesting "
-        "financial registry filings from Companies House across a 2-stage execution pipeline."
+        "**Objective:** Programmatically harvested financial registry filings from Companies House across "
+        "a 2-stage execution pipeline."
     )
     
-    tab1, tab2 = st.tabs(["Stage 1: Mapping Phase", "Stage 2: Extraction Phase"])
+    tab1, tab2 = st.tabs(["Stage 1", "Stage 2"])
     
     with tab1:
-        st.markdown("#### Registry Schema & Field Mapping")
-        st.write("Aligns disparate regulatory registry balance sheet structures into a uniform financial schema.")
+        st.write("Queries the Companies House API to map trading names to verified legal entity registration numbers")
         with st.expander("💻 View Mapping Code Snippet & Targets"):
-            # Reads your exact uploaded mapping metadata file name
             try:
                 mapping_df = pd.read_csv("Mapping Output.xlsx - Sheet1.csv")
                 st.dataframe(mapping_df, use_container_width=True)
@@ -110,63 +104,54 @@ with st.container(border=True):
                 st.code("# Code from mapping_financials.py\n# Normalizes UK GAAP/IFRS tags", language='python')
             
     with tab2:
-        st.markdown("#### Structured iXBRL Extraction Output")
-        st.write("Parses raw XML data into fully populated multi-year financial statements.")
+        st.write("Parses financial metrics from the companies' iXBRL digital filings")
         with st.expander("💻 View Extracted Data View"):
-            # Reads your exact uploaded financials file name
             try:
                 extracted_financials = pd.read_csv("Financials + CCA.xlsx - Target Financials.csv")
                 st.dataframe(extracted_financials[["Company", "Revenue (£)", "Operating Profit / EBIT (£)", "EBITDA Derived (£)", "Net Debt (£)"]], use_container_width=True)
             except Exception:
                 st.write("📁 Financial statement matrix linking...")
 
+    # Financial Engineering Gaps Solution (Framed in blue st.info)
+    st.info(
+        "**Problem:** There were gaps in the financial output data due to small/medium companies filing abridged "
+        "or simplified accounts.\n\n"
+        "**Solution:** Built top-down predictive industry logic and peer-group averages to estimate missing line items "
+        "and reconstitute complete institutional income statements."
+    )
+    
+    # Placeholder for the data asset you will attach next
+    with st.expander("📊 View Completed & Reconstituted Financial Data (With Industry Estimates)"):
+        try:
+            # Replaces with the master matrix sheet you send next
+            est_financials = pd.read_csv("Mobility_Platform_Financials.xlsx - Sheet1.csv")
+            st.dataframe(est_financials, use_container_width=True)
+        except Exception:
+            st.caption("Upload your updated estimates sheet file to view the final output data grid here.")
+
 # ==========================================
-# PHASE 4: Financial Engineering Adjustments
+# PHASE 4: Valuation & Institutional Modeling
 # ==========================================
 st.markdown("<div style='text-align: center; font-size: 24px;'>⬇️</div>", unsafe_allow_html=True)
 
 with st.container(border=True):
-    st.markdown("### Phase 4: Financial Engineering & Normalization")
+    st.markdown("### Phase 4: Comparable Companies Analysis (CCA) & LBO Model")
     st.write(
-        "**Objective:** Resolved data gaps inherent to small/medium companies that file 'abridged' or simplified "
-        "accounts. Implemented predictive top-down industry logic and benchmark estimates to reconstitute full "
-        "income statements (e.g., estimating gross margins based on peer-group software averages)."
-    )
-    st.caption("💡 *Demonstrates professional analytical problem-solving when dealing with messy marketplace data.*")
-
-# ==========================================
-# PHASE 5: Valuation & Institutional Modeling
-# ==========================================
-st.markdown("<div style='text-align: center; font-size: 24px;'>⬇️</div>", unsafe_allow_html=True)
-
-with st.container(border=True):
-    st.markdown("### Phase 5: Comparable Companies Analysis (CCA) & LBO Model")
-    st.write(
-        "**Objective:** Validated pricing multiples (EV/EBITDA, P/E) against public/private peer universes "
-        "and ran a debt sizing framework to see how much leveraged bank debt the cash flows could safely service."
+        "**Objective:** Validated pricing multiples against public and private peers. "
+        "Then I ran a debt sizing framework to see how much bank debt the cash flows could safely service."
     )
     
-    # Interactive Demo Area
-    st.markdown("#### 🛠️ Live LBO Stress-Testing Tool")
-    st.write("Test the asset's debt capacity right here on the web:")
-    
-    c1, c2, c3 = st.columns(3)
-    with c1:
-        ebitda = st.number_input("Target EBITDA (£)", value=2000000, step=250000)
-    with c2:
-        debt_multiple = st.slider("Senior Debt Multiple (x EBITDA)", 2.0, 6.0, 3.5, step=0.1)
-    with c3:
-        interest_rate = st.slider("Bank Cost of Debt (%)", 4.0, 12.0, 7.5, step=0.25)
-        
-    total_debt = ebitda * debt_multiple
-    annual_interest = total_debt * (interest_rate / 100)
-    
-    st.metric(label="Maximum Safe Debt Funding", value=f"£{total_debt:,.0f}")
-    st.caption(f"Estimated Annual Interest Payment: £{annual_interest:,.0f}. Assumes a safety coverage ratio floor of >1.5x.")
-    
+    # Financial tables summary output directly from your master spreadsheet
+    with st.expander("📊 View Valuation & Leverage Summary Dashboard"):
+        try:
+            val_df = pd.read_csv("Financials + CCA.xlsx - Valuation Summary.csv")
+            st.dataframe(val_df, use_container_width=True)
+        except Exception:
+            st.write("📁 Valuation summary sheet linking...")
+
     st.markdown("---")
     
-    # Download Core Excel Model Asset (Tied to your master valuation workbook)
+    # Download Core Excel Model Asset
     try:
         with open("Financials + CCA.xlsx", "rb") as f:
             excel_bytes = f.read()
@@ -180,4 +165,4 @@ with st.container(border=True):
         st.warning("🔗 Connect your master workbook `Financials + CCA.xlsx` to activate model download link.")
 
 st.markdown("---")
-st.write("✨ *Thank you for reviewing my project. Feel free to explore the technical code structures via the sidebar pages.*")
+st.write("Thank you for reviewing my project. Feel free to explore the technical code structures via the sidebar pages")
