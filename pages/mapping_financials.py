@@ -1,3 +1,10 @@
+import streamlit as st
+
+st.title("Phase 1: Algorithmic Sourcing Script")
+st.write("This script programmatically opens the Megabuyte50 PDF report, parses structural layout data, and isolates initial platform targets.")
+
+st.code('''
+
 import requests
 import json
 import pandas as pd
@@ -268,3 +275,5 @@ print("\n" + "=" * 60)
 print(f"  Registry saved to: {OUTPUT_PATH}")
 print(f"  {len(registry)} of {len(TARGET_COMPANIES)} companies resolved successfully.")
 print("=" * 60)
+
+''', language='python')
