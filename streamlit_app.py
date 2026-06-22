@@ -160,8 +160,6 @@ def show_overview():
             "Then I ran a debt sizing framework to see how much bank debt the cash flows could safely service."
         )
 
-        st.markdown("---")
-
         try:
             with open("Financials + CCA.xlsx", "rb") as f:
                 excel_bytes = f.read()
