@@ -2,27 +2,15 @@ import streamlit as st
 import pandas as pd
 import os
 
-# Set up page configuration with no emoji in the tab title
 st.set_page_config(
-    page_title="UK Tech M&A Roll-Up Strategy",
+    page_title="Deal Workflow",
     layout="wide"
 )
 
-# Helper function to reliably load data from your Excel workbooks.
-# Your repo stores data as .xlsx files (not .csv), so we read directly
-# with pd.read_excel and target the correct sheet by name.
 def safe_load_excel(filename, sheet_name=0, search_keyword=None):
-    """
-    filename: exact .xlsx filename in the repo root, e.g. "Financials + CCA.xlsx"
-    sheet_name: sheet name (str) or index (int, default first sheet)
-    search_keyword: optional fallback substring to find the file if the
-                    exact name doesn't match (handles renames/typos)
-    """
     try:
         if os.path.exists(filename):
             return pd.read_excel(filename, sheet_name=sheet_name)
-
-        # Fallback: search the current directory for a similarly named .xlsx
         if search_keyword:
             files = os.listdir(".")
             matched = [
@@ -35,6 +23,8 @@ def safe_load_excel(filename, sheet_name=0, search_keyword=None):
         st.error(f"Could not load '{filename}' (sheet: {sheet_name}): {e}")
     return None
 
+ARROW = "<div style='text-align: center; font-size: 20px; color: black; margin: 4px 0;'>↓</div>"
+
 # Main Title & Subtitle
 st.title("UK Mid-Market M&A Tech Sector Roll-Up Strategy and Valuation")
 st.markdown("### *An End-to-End Buy-Side Advisory & Data Pipeline Simulation*")
@@ -43,7 +33,7 @@ st.markdown("---")
 
 # Summary Box
 st.info(
-    "**Summary:** This interactive dashboard simulates an end-to-end buy-side workflow. "
+    "**Summary:** This dashboard simulates an end-to-end buy-side workflow. "
     "It moves sequentially from deal sourcing to financial data harvesting, it then constructs "
     "a CCA and LBO debt capacity model to evaluate the consolidation of UK mid-market automotive tech companies."
 )
@@ -67,10 +57,8 @@ with st.container(border=True):
             label="Open Full Python Script →",
             icon="📄"
         )
-
     with col2:
         with st.expander("View Sourcing Output Table"):
-            # File: python_PDFparse.xlsx -> sheet "Megabuyte50_Rankings"
             df = safe_load_excel(
                 "python_PDFparse.xlsx",
                 sheet_name="Megabuyte50_Rankings",
@@ -82,14 +70,14 @@ with st.container(border=True):
                 st.info("Sourcing output table not found — check the sheet name in python_PDFparse.xlsx.")
 
 # ==========================================
-# PHASE 2: Conducting a Bolt-on Strategy
+# PHASE 2: Bolt-on Strategy
 # ==========================================
-st.markdown("<div style='text-align: center; font-size: 24px;'>⬇️</div>", unsafe_allow_html=True)
+st.markdown(ARROW, unsafe_allow_html=True)
 
 with st.container(border=True):
     st.markdown("### Phase 2: Conducting a Bolt-on Strategy")
     st.write(
-        "**Objective:** Identified strategic bolts on targets and synthesised findings into a "
+        "**Objective:** Identified strategic bolt-on targets and synthesised findings into a "
         "formal Investment Committee presentation memo."
     )
 
@@ -108,7 +96,7 @@ with st.container(border=True):
 # ==========================================
 # PHASE 3: Retrieving Financial Data
 # ==========================================
-st.markdown("<div style='text-align: center; font-size: 24px;'>⬇️</div>", unsafe_allow_html=True)
+st.markdown(ARROW, unsafe_allow_html=True)
 
 with st.container(border=True):
     st.markdown("### Phase 3: Retrieving Financial Data")
@@ -131,7 +119,6 @@ with st.container(border=True):
             )
         with col_m2:
             with st.expander("View Mapping Targets Table"):
-                # File: Mapping Output.xlsx -> sheet "Sheet1"
                 df_map = safe_load_excel(
                     "Mapping Output.xlsx",
                     sheet_name="Sheet1",
@@ -154,7 +141,6 @@ with st.container(border=True):
             )
         with col_e2:
             with st.expander("View Extracted Data Table"):
-                # File: Financials + CCA.xlsx -> sheet "Target Financials"
                 df_ext = safe_load_excel(
                     "Financials + CCA.xlsx",
                     sheet_name="Target Financials",
@@ -165,16 +151,18 @@ with st.container(border=True):
                 else:
                     st.write("Extracted financials table not found — check the sheet name in Financials + CCA.xlsx.")
 
+    # Divider to separate problem/solution from the Stage tabs above
+    st.markdown("---")
+
     # Financial Engineering Gaps Solution Box
     st.info(
-        "**Problem:** There were gaps in the financial output data due to small/medium companies filing abridged "
+        "**Problem:** There were gaps in the financial output data due to companies filing abridged "
         "or simplified accounts.\n\n"
-        "**Solution:** Built top-down predictive industry logic and peer-group averages to estimate missing line items "
-        "and reconstitute complete institutional income statements."
+        "**Solution:** Used industry and peer-group averages to estimate missing line items "
+        "and complete income statements."
     )
 
     with st.expander("View Completed & Reconstituted Financial Data (With Industry Estimates)"):
-        # File: Mobility_Platform_Financials.xlsx -> sheet "Sheet1"
         df_est = safe_load_excel(
             "Mobility_Platform_Financials.xlsx",
             sheet_name="Sheet1",
@@ -188,7 +176,7 @@ with st.container(border=True):
 # ==========================================
 # PHASE 4: Valuation & Institutional Modeling
 # ==========================================
-st.markdown("<div style='text-align: center; font-size: 24px;'>⬇️</div>", unsafe_allow_html=True)
+st.markdown(ARROW, unsafe_allow_html=True)
 
 with st.container(border=True):
     st.markdown("### Phase 4: Comparable Companies Analysis (CCA) & LBO Model")
@@ -199,7 +187,6 @@ with st.container(border=True):
 
     st.markdown("---")
 
-    # Download Core Excel Model Asset
     try:
         with open("Financials + CCA.xlsx", "rb") as f:
             excel_bytes = f.read()
