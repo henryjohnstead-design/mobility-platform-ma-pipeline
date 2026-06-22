@@ -1,8 +1,9 @@
 import streamlit as st
 
-st.title("Phase 1: Algorithmic Sourcing Script")
-st.write("This script programmatically opens the Megabuyte50 PDF report, parses structural layout data, and isolates initial platform targets.")
-
+st.markdown(
+    "<p style='font-size:18px; margin-top:0;'>This script opens the Megabuyte50 PDF report, parses structural layout data and isolates platform targets.</p>",
+    unsafe_allow_html=True
+)
 st.code('''
 
 import re
