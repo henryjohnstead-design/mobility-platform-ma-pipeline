@@ -119,7 +119,6 @@ def show_overview():
                     if st.button("Go to Extraction Financials", key="btn_ext"):
                         st.switch_page(extraction_financials_page)
             with col_e2:
-                # SWAPPED FILE: Now points to Mobility_Platform_Financials.xlsx
                 try:
                     with open("Mobility_Platform_Financials.xlsx", "rb") as f:
                         mobility_bytes = f.read()
@@ -135,14 +134,14 @@ def show_overview():
 
         st.markdown("---")
 
+        # Updated Problem & Solution text based on your image inputs
         st.info(
             "**Problem:** There were gaps in the financial output data due to companies filing abridged "
-            "or simplified accounts.\n\n"
-            "**Solution:** Used industry and peer-group averages to estimate missing line items "
-            "and complete income statements."
+            "or simplified accounts, as well as formatting of the PDF file and iXBRL tag mismatches.\n\n"
+            "**Solution:** Downloaded the file and manually filled in the gaps by uploading PDFs into AI, "
+            "while using industry and peer-group averages to estimate missing line items and complete the income statements."
         )
 
-        # SWAPPED FILE: Now points to Financials + CCA.xlsx
         try:
             with open("Financials + CCA.xlsx", "rb") as f:
                 reconstituted_bytes = f.read()
