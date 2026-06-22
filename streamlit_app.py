@@ -2,11 +2,36 @@ import streamlit as st
 import pandas as pd
 import os
 
+# ==========================================
+# MODERN NAVIGATION ROUTING (SOLUTION 1)
+# ==========================================
+# 1. Define this main file explicitly as a page with your desired sidebar name
+overview_page = st.Page(
+    "streamlit_app.py", 
+    title="Overview", 
+    icon="📊", 
+    default=True
+)
+
+# 2. Define your existing sub-pages so they still appear underneath it in the sidebar
+pdf_parser_page = st.Page("pages/1_pdf_parser.py", title="1 PDF Parser")
+mapping_financials_page = st.Page("pages/2_mapping_financials.py", title="2 Mapping Financials")
+extraction_financials_page = st.Page("pages/3_extraction_financials.py", title="3 Extraction Financials")
+
+# 3. Pass all pages to the navigation manager
+pg = st.navigation([overview_page, pdf_parser_page, mapping_financials_page, extraction_financials_page])
+
+# 4. Set global page configuration and execute routing
 st.set_page_config(
     page_title="Deal Pipeline",
     layout="wide"
 )
+pg.run()
 
+
+# ==========================================
+# YOUR EXISTING APPLICATION LOGIC
+# ==========================================
 def safe_load_excel(filename, sheet_name=0, search_keyword=None):
     try:
         if os.path.exists(filename):
@@ -53,7 +78,7 @@ with st.container(border=True):
     col1, col2 = st.columns(2)
     with col1:
         st.page_link(
-            "pages/1_pdf_parser.py",
+            pdf_parser_page, # Updated to use the page object variable
             label="📄 Open Full Python Script →"
         )
     with col2:
@@ -112,7 +137,7 @@ with st.container(border=True):
         col_m1, col_m2 = st.columns(2)
         with col_m1:
             st.page_link(
-                "pages/2_mapping_financials.py",
+                mapping_financials_page, # Updated to use the page object variable
                 label="📄 Open Full Mapping Script →"
             )
         with col_m2:
@@ -133,7 +158,7 @@ with st.container(border=True):
         col_e1, col_e2 = st.columns(2)
         with col_e1:
             st.page_link(
-                "pages/3_extraction_financials.py",
+                extraction_financials_page, # Updated to use the page object variable
                 label="📄 Open Full Extraction Script →"
             )
         with col_e2:
