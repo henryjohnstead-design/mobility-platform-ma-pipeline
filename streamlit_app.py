@@ -6,6 +6,10 @@ st.set_page_config(
     page_title="Deal Workflow",
     layout="wide"
 )
+st.set_page_config(
+    page_title="Overview",
+    layout="wide"
+)
 
 def safe_load_excel(filename, sheet_name=0, search_keyword=None):
     try:
