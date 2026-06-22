@@ -35,7 +35,7 @@ def show_overview():
 
         col1, col2 = st.columns(2)
         with col1:
-            with st.expander("📄 Open Full Python Script"):
+            with st.expander("Open Full Python Script"):
                 if st.button("Go to PDF Parser Script", key="btn_pdf"):
                     st.switch_page(pdf_parser_page)
         with col2:
@@ -93,7 +93,7 @@ def show_overview():
 
             col_m1, col_m2 = st.columns(2)
             with col_m1:
-                with st.expander("📄 Open Full Mapping Script"):
+                with st.expander("Open Full Mapping Script"):
                     if st.button("Go to Mapping Financials", key="btn_map"):
                         st.switch_page(mapping_financials_page)
             with col_m2:
@@ -113,7 +113,7 @@ def show_overview():
 
             col_e1, col_e2 = st.columns(2)
             with col_e1:
-                with st.expander("📄 Open Full Extraction Script"):
+                with st.expander("Open Full Extraction Script"):
                     if st.button("Go to Extraction Financials", key="btn_ext"):
                         st.switch_page(extraction_financials_page)
             with col_e2:
