@@ -35,10 +35,9 @@ def show_overview():
 
         col1, col2 = st.columns(2)
         with col1:
-            st.page_link(
-                pdf_parser_page, 
-                label="📄 Open Full Python Script →"
-            )
+            with st.expander("📄 Open Full Python Script"):
+                if st.button("Go to PDF Parser Script", key="btn_pdf"):
+                    st.switch_page(pdf_parser_page)
         with col2:
             with st.expander("View Sourcing Output Table"):
                 df = safe_load_excel(
@@ -94,10 +93,9 @@ def show_overview():
 
             col_m1, col_m2 = st.columns(2)
             with col_m1:
-                st.page_link(
-                    mapping_financials_page, 
-                    label="📄 Open Full Mapping Script →"
-                )
+                with st.expander("📄 Open Full Mapping Script"):
+                    if st.button("Go to Mapping Financials", key="btn_map"):
+                        st.switch_page(mapping_financials_page)
             with col_m2:
                 with st.expander("View Mapping Targets Table"):
                     df_map = safe_load_excel(
@@ -115,10 +113,9 @@ def show_overview():
 
             col_e1, col_e2 = st.columns(2)
             with col_e1:
-                st.page_link(
-                    extraction_financials_page, 
-                    label="📄 Open Full Extraction Script →"
-                )
+                with st.expander("📄 Open Full Extraction Script"):
+                    if st.button("Go to Extraction Financials", key="btn_ext"):
+                        st.switch_page(extraction_financials_page)
             with col_e2:
                 with st.expander("View Extracted Data Table"):
                     df_ext = safe_load_excel(
@@ -206,7 +203,6 @@ ARROW = "<div style='text-align: center; font-size: 20px; color: black; margin: 
 # ==========================================
 # MODERN NAVIGATION ROUTING DEFINITION
 # ==========================================
-# Notice how we pass the function 'show_overview' here instead of the script string name!
 overview_page = st.Page(
     show_overview, 
     title="Overview", 
