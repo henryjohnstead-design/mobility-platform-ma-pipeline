@@ -210,7 +210,6 @@ ARROW = "<div style='text-align: center; font-size: 20px; color: black; margin: 
 overview_page = st.Page(
     show_overview, 
     title="Overview", 
-    icon="📊", 
     default=True
 )
 
