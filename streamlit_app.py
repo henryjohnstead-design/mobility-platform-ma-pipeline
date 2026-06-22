@@ -97,16 +97,18 @@ def show_overview():
                     if st.button("Go to Mapping Financials", key="btn_map"):
                         st.switch_page(mapping_financials_page)
             with col_m2:
-                with st.expander("View Mapping Targets Table"):
-                    df_map = safe_load_excel(
-                        "Mapping Output.xlsx",
-                        sheet_name="Sheet1",
-                        search_keyword="Mapping"
+                try:
+                    with open("Mapping Output.xlsx", "rb") as f:
+                        mapping_bytes = f.read()
+                    st.download_button(
+                        label="Download Mapping Targets Table (Excel)",
+                        data=mapping_bytes,
+                        file_name="Mapping_Output.xlsx",
+                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        key="dl_mapping"
                     )
-                    if df_map is not None:
-                        st.dataframe(df_map, use_container_width=True)
-                    else:
-                        st.write("Mapping table not found — check the sheet name in Mapping Output.xlsx.")
+                except FileNotFoundError:
+                    st.warning("Connect your uploaded `Mapping Output.xlsx` to activate download link.")
 
         with tab2:
             st.write("Parses financial metrics from the companies' iXBRL digital filings")
@@ -117,16 +119,19 @@ def show_overview():
                     if st.button("Go to Extraction Financials", key="btn_ext"):
                         st.switch_page(extraction_financials_page)
             with col_e2:
-                with st.expander("View Extracted Data Table"):
-                    df_ext = safe_load_excel(
-                        "Financials + CCA.xlsx",
-                        sheet_name="Target Financials",
-                        search_keyword="Financials"
+                # SWAPPED FILE: Now points to Mobility_Platform_Financials.xlsx
+                try:
+                    with open("Mobility_Platform_Financials.xlsx", "rb") as f:
+                        mobility_bytes = f.read()
+                    st.download_button(
+                        label="Download Extracted Data Table (Excel)",
+                        data=mobility_bytes,
+                        file_name="Mobility_Platform_Financials.xlsx",
+                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        key="dl_mobility"
                     )
-                    if df_ext is not None:
-                        st.dataframe(df_ext, use_container_width=True)
-                    else:
-                        st.write("Extracted financials table not found — check the sheet name in Financials + CCA.xlsx.")
+                except FileNotFoundError:
+                    st.warning("Connect your uploaded `Mobility_Platform_Financials.xlsx` to activate download link.")
 
         st.markdown("---")
 
@@ -137,20 +142,23 @@ def show_overview():
             "and complete income statements."
         )
 
-        with st.expander("View Completed & Reconstituted Financial Data (With Industry Estimates)"):
-            df_est = safe_load_excel(
-                "Mobility_Platform_Financials.xlsx",
-                sheet_name="Sheet1",
-                search_keyword="Mobility_Platform"
+        # SWAPPED FILE: Now points to Financials + CCA.xlsx
+        try:
+            with open("Financials + CCA.xlsx", "rb") as f:
+                reconstituted_bytes = f.read()
+            st.download_button(
+                label="Download Completed & Reconstituted Financial Data (Excel)",
+                data=reconstituted_bytes,
+                file_name="Financials_Plus_CCA.xlsx",
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                key="dl_reconstituted"
             )
-            if df_est is not None:
-                st.dataframe(df_est, use_container_width=True)
-            else:
-                st.caption("Reconstituted financials table not found — check the sheet name in Mobility_Platform_Financials.xlsx.")
+        except FileNotFoundError:
+            st.warning("Connect your uploaded `Financials + CCA.xlsx` to activate download link.")
 
-    # ==========================================
-    # PHASE 4: Valuation & Institutional Modeling
-    # ==========================================
+# ==========================================
+# PHASE 4: Valuation & Institutional Modeling
+# ==========================================
     st.markdown(ARROW, unsafe_allow_html=True)
 
     with st.container(border=True):
@@ -167,7 +175,8 @@ def show_overview():
                 label="Download Complete Financial Model (CCA + LBO Workbook)",
                 data=excel_bytes,
                 file_name="Automotive_Tech_Sector_CCA_Model.xlsx",
-                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                key="dl_phase4"
             )
         except FileNotFoundError:
             st.warning("Connect your master workbook `Financials + CCA.xlsx` to activate model download link.")
