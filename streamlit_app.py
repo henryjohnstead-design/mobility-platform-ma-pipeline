@@ -3,11 +3,7 @@ import pandas as pd
 import os
 
 st.set_page_config(
-    page_title="Deal Workflow",
-    layout="wide"
-)
-st.set_page_config(
-    page_title="Overview",
+    page_title="Deal Pipeline",
     layout="wide"
 )
 
@@ -58,8 +54,7 @@ with st.container(border=True):
     with col1:
         st.page_link(
             "pages/1_pdf_parser.py",
-            label="Open Full Python Script →",
-            icon="📄"
+            label="📄 Open Full Python Script →"
         )
     with col2:
         with st.expander("View Sourcing Output Table"):
@@ -118,8 +113,7 @@ with st.container(border=True):
         with col_m1:
             st.page_link(
                 "pages/2_mapping_financials.py",
-                label="Open Full Mapping Script →",
-                icon="📄"
+                label="📄 Open Full Mapping Script →"
             )
         with col_m2:
             with st.expander("View Mapping Targets Table"):
@@ -140,8 +134,7 @@ with st.container(border=True):
         with col_e1:
             st.page_link(
                 "pages/3_extraction_financials.py",
-                label="Open Full Extraction Script →",
-                icon="📄"
+                label="📄 Open Full Extraction Script →"
             )
         with col_e2:
             with st.expander("View Extracted Data Table"):
@@ -155,10 +148,8 @@ with st.container(border=True):
                 else:
                     st.write("Extracted financials table not found — check the sheet name in Financials + CCA.xlsx.")
 
-    # Divider to separate problem/solution from the Stage tabs above
     st.markdown("---")
 
-    # Financial Engineering Gaps Solution Box
     st.info(
         "**Problem:** There were gaps in the financial output data due to companies filing abridged "
         "or simplified accounts.\n\n"
