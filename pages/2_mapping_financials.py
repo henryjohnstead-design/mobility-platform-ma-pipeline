@@ -1,7 +1,9 @@
 import streamlit as st
 
-st.title("Phase 1: Algorithmic Sourcing Script")
-st.write("This script programmatically opens the Megabuyte50 PDF report, parses structural layout data, and isolates initial platform targets.")
+st.markdown(
+    "<p style='font-size:18px; margin-top:0;'>Queries the Companies House API to map trading names to verified legal entity registration numbers.</p>",
+    unsafe_allow_html=True
+)
 
 st.code('''
 
