@@ -134,12 +134,10 @@ def show_overview():
 
         st.markdown("---")
 
-        # Updated Problem & Solution text based on your image inputs
+        # Your professionally refined Problem & Solution statements
         st.info(
-            "**Problem:** There were gaps in the financial output data due to companies filing abridged "
-            "or simplified accounts, as well as formatting of the PDF file and iXBRL tag mismatches.\n\n"
-            "**Solution:** Downloaded the file and manually filled in the gaps by uploading PDFs into AI, "
-            "while using industry and peer-group averages to estimate missing line items and complete the income statements."
+            "**Problem:** There were gaps in the financial output data because of iXBRL tag mismatches, PDF formatting issues and companies filing abridged or simplified accounts.\n\n"
+            "**Solution:** I manually filled in the gaps by reading and synthesising the company accounts. I also used industry and peer-group averages to estimate missing line items."
         )
 
         try:
