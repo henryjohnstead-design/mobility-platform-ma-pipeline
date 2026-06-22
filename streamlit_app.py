@@ -9,7 +9,6 @@ import os
 overview_page = st.Page(
     "streamlit_app.py", 
     title="Overview", 
-    icon="📊", 
     default=True
 )
 
