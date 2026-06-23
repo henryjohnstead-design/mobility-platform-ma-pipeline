@@ -141,7 +141,7 @@ def show_overview():
         )
 
         try:
-            with open("Financials + CCA.xlsx", "rb") as f:
+            with open("Financials_CCA_LBO.xlsx", "rb") as f:
                 reconstituted_bytes = f.read()
             st.download_button(
                 label="Download Completed & Reconstituted Financial Data (Excel)",
