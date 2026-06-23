@@ -39,16 +39,18 @@ def show_overview():
                 if st.button("Go to PDF Parser Script", key="btn_pdf"):
                     st.switch_page(pdf_parser_page)
         with col2:
-            with st.expander("View Sourcing Output Table"):
-                df = safe_load_excel(
-                    "python_PDFparse.xlsx",
-                    sheet_name="Megabuyte50_Rankings",
-                    search_keyword="Megabuyte50"
+            try:
+                with open("python_PDFparse.xlsx", "rb") as f:
+                    sourcing_bytes = f.read()
+                st.download_button(
+                    label="Download Sourcing Output Table (Excel)",
+                    data=sourcing_bytes,
+                    file_name="python_PDFparse.xlsx",
+                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    key="dl_sourcing"
                 )
-                if df is not None:
-                    st.dataframe(df, use_container_width=True)
-                else:
-                    st.info("Sourcing output table not found — check the sheet name in python_PDFparse.xlsx.")
+            except FileNotFoundError:
+                st.warning("Connect your uploaded `python_PDFparse.xlsx` to activate download link.")
 
     # ==========================================
     # PHASE 2: Bolt-on Strategy
@@ -134,28 +136,27 @@ def show_overview():
 
         st.markdown("---")
 
-        # Your professionally refined Problem & Solution statements
         st.info(
             "**Problem:** There were gaps in the financial output data because of iXBRL tag mismatches, PDF formatting issues and companies filing abridged or simplified accounts.\n\n"
-            "**Solution:** I manually filled in the gaps by reading and synthesising the company accounts. I also used industry and peer-group averages to estimate missing line items."
+            "**Solution:** I manually filled in the gaps by reading and synthesising the company account. I also used industry and peer-group averages to estimate missing line items."
         )
 
         try:
-            with open("Financials_CCA_LBO.xlsx", "rb") as f:
-                reconstituted_bytes = f.read()
+            with open("Full_Financials.xlsx", "rb") as f:
+                full_financials_bytes = f.read()
             st.download_button(
                 label="Download Completed & Reconstituted Financial Data (Excel)",
-                data=reconstituted_bytes,
-                file_name="Financials_Plus_CCA.xlsx",
+                data=full_financials_bytes,
+                file_name="Full_Financials.xlsx",
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                key="dl_reconstituted"
+                key="dl_full_financials"
             )
         except FileNotFoundError:
-            st.warning("Connect your uploaded `Financials + CCA.xlsx` to activate download link.")
+            st.warning("Connect your uploaded `Full_Financials.xlsx` to activate download link.")
 
-# ==========================================
-# PHASE 4: Valuation & Institutional Modeling
-# ==========================================
+    # ==========================================
+    # PHASE 4: Valuation & Institutional Modeling
+    # ==========================================
     st.markdown(ARROW, unsafe_allow_html=True)
 
     with st.container(border=True):
@@ -171,12 +172,12 @@ def show_overview():
             st.download_button(
                 label="Download Complete Financial Model (CCA + LBO Workbook)",
                 data=excel_bytes,
-                file_name="Automotive_Tech_Sector_CCA_Model.xlsx",
+                file_name="Financials_CCA_LBO.xlsx",
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                 key="dl_phase4"
             )
         except FileNotFoundError:
-            st.warning("Connect your master workbook `Financials + CCA.xlsx` to activate model download link.")
+            st.warning("Connect your master workbook `Financials_CCA_LBO.xlsx` to activate model download link.")
 
     st.markdown("---")
     st.write("Thank you for reviewing my project. Feel free to explore the technical code structures via the sidebar pages")
