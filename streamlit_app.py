@@ -166,7 +166,7 @@ def show_overview():
         )
 
         try:
-            with open("Financials + CCA.xlsx", "rb") as f:
+            with open("Financials_CCA_LBO.xlsx", "rb") as f:
                 excel_bytes = f.read()
             st.download_button(
                 label="Download Complete Financial Model (CCA + LBO Workbook)",
