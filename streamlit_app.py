@@ -18,7 +18,7 @@ def show_hero_hexagons():
         align-items: stretch;
         gap: 22px;
         flex-wrap: wrap;
-        margin: 6px 0 18px 0;
+        margin: 0px 0 6px 0;
     }
     .hex {
         position: relative;
@@ -100,7 +100,7 @@ def show_hero_hexagons():
 </body>
 </html>
     """
-    components.html(html, height=210, scrolling=False)
+    components.html(html, height=195, scrolling=False)
 
 
 # ==========================================
@@ -108,6 +108,24 @@ def show_hero_hexagons():
 # ==========================================
 def show_overview():
     """All of your original dashboard content goes inside this function"""
+
+    # Compress Streamlit's default top padding and header spacing so the
+    # hexagons + summary fit above the fold without shrinking either.
+    st.markdown(
+        """
+        <style>
+        .block-container {
+            padding-top: 1.6rem !important;
+            padding-bottom: 0rem !important;
+        }
+        h1 { margin-bottom: 0.1rem !important; }
+        h3 { margin-top: 0.1rem !important; margin-bottom: 0.1rem !important; }
+        .stCaption { margin-bottom: 0rem !important; }
+        hr { margin: 0.6rem 0 !important; }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
 
     # Main Title & Subtitle
     st.title("UK Mid-Market M&A Tech Sector Roll-Up Strategy and Valuation")
