@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit.components.v1 as components
 import pandas as pd
 import os
 
@@ -7,7 +8,10 @@ import os
 # ==========================================
 def show_hero_hexagons():
     html = """
+<html>
+<head>
     <style>
+    body { margin: 0; padding: 0; }
     .hex-wrap {
         display: flex;
         justify-content: center;
@@ -58,6 +62,8 @@ def show_hero_hexagons():
         margin-top: 2px;
     }
     </style>
+</head>
+<body>
 
     <div class="hex-wrap">
 
@@ -90,8 +96,11 @@ def show_hero_hexagons():
         </div>
 
     </div>
+
+</body>
+</html>
     """
-    st.markdown(html, unsafe_allow_html=True)
+    components.html(html, height=210, scrolling=False)
 
 
 # ==========================================
