@@ -91,7 +91,6 @@ def show_hero_hexagons():
             <div class="hex-substat">
                 <div>Combined Revenue</div>
                 <div>34.9% EBITDA Margin</div>
-                <div>&pound;143.47m Debt Capacity</div>
             </div>
         </div>
 
