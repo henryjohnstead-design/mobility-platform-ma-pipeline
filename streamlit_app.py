@@ -3,16 +3,111 @@ import pandas as pd
 import os
 
 # ==========================================
+# HERO HEXAGON GRAPHIC (Key Results Summary)
+# ==========================================
+def show_hero_hexagons():
+    html = """
+    <style>
+    .hex-wrap {
+        display: flex;
+        justify-content: center;
+        align-items: stretch;
+        gap: 22px;
+        flex-wrap: wrap;
+        margin: 6px 0 18px 0;
+    }
+    .hex {
+        position: relative;
+        width: 178px;
+        height: 176px;
+        clip-path: polygon(25% 3%, 75% 3%, 100% 50%, 75% 97%, 25% 97%, 0% 50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 14px 20px;
+        color: #ffffff;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .hex-1 { background: linear-gradient(160deg, #1f2a44, #33456e); }
+    .hex-2 { background: linear-gradient(160deg, #7a1f2b, #b23a2f); }
+    .hex-3 { background: linear-gradient(160deg, #1e4d3a, #2f7d57); }
+    .hex-4 { background: linear-gradient(160deg, #3d3560, #6a4c93); width: 210px; }
+
+    .hex-label {
+        font-size: 0.62rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        opacity: 0.85;
+        margin-bottom: 4px;
+        font-weight: 600;
+    }
+    .hex-stat {
+        font-size: 1.55rem;
+        font-weight: 800;
+        line-height: 1.05;
+    }
+    .hex-substat {
+        font-size: 0.68rem;
+        opacity: 0.9;
+        margin-top: 5px;
+        line-height: 1.3;
+    }
+    .hex-multiline .hex-substat div {
+        margin-top: 2px;
+    }
+    </style>
+
+    <div class="hex-wrap">
+
+        <div class="hex hex-1">
+            <div class="hex-label">Deal Sourcing</div>
+            <div class="hex-stat">50 &rarr; 6</div>
+            <div class="hex-substat">50 firms screened (Megabuyte50)<br>3 identified algorithmically<br>+3 sourced manually</div>
+        </div>
+
+        <div class="hex hex-2">
+            <div class="hex-label">Investment Thesis</div>
+            <div class="hex-stat">&pound;79.38m</div>
+            <div class="hex-substat">Valuation arbitrage vs.<br>public peer multiples</div>
+        </div>
+
+        <div class="hex hex-3">
+            <div class="hex-label">Debt Sizing</div>
+            <div class="hex-stat">4.08x</div>
+            <div class="hex-substat">Implied DSCR on<br>&pound;143.47m debt capacity</div>
+        </div>
+
+        <div class="hex hex-4 hex-multiline">
+            <div class="hex-label">Platform Profile</div>
+            <div class="hex-stat">&pound;117.65m</div>
+            <div class="hex-substat">
+                <div>Combined Revenue</div>
+                <div>34.9% EBITDA Margin</div>
+                <div>&pound;143.47m Debt Capacity</div>
+            </div>
+        </div>
+
+    </div>
+    """
+    st.markdown(html, unsafe_allow_html=True)
+
+
+# ==========================================
 # DEFINE THE MAIN WRAPPER FUNCTION
 # ==========================================
 def show_overview():
     """All of your original dashboard content goes inside this function"""
-    
+
     # Main Title & Subtitle
     st.title("UK Mid-Market M&A Tech Sector Roll-Up Strategy and Valuation")
     st.markdown("### *An End-to-End Buy-Side Advisory & Data Pipeline Simulation*")
     st.caption("Developed by Henry Stead")
     st.markdown("---")
+
+    # Hero hexagon results graphic (sits above the Summary)
+    show_hero_hexagons()
 
     # Summary Box
     st.info(
@@ -209,8 +304,8 @@ ARROW = "<div style='text-align: center; font-size: 20px; color: black; margin: 
 # MODERN NAVIGATION ROUTING DEFINITION
 # ==========================================
 overview_page = st.Page(
-    show_overview, 
-    title="Overview", 
+    show_overview,
+    title="Overview",
     default=True
 )
 
