@@ -74,9 +74,9 @@ def show_hero_hexagons():
         </div>
 
         <div class="hex hex-2">
-            <div class="hex-label">Investment Thesis</div>
+            <div class="hex-label">Valuation Arbitrage</div>
             <div class="hex-stat">&pound;79.38m</div>
-            <div class="hex-substat">Valuation arbitrage vs.<br>public peer multiples</div>
+            <div class="hex-substat">Uplift vs.<br>public peer multiples</div>
         </div>
 
         <div class="hex hex-3">
